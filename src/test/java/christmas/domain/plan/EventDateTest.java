@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-class DayTest {
+class EventDateTest {
 
     @Nested
     @DisplayName("날짜 검증 테스트")
@@ -20,7 +20,7 @@ class DayTest {
         @DisplayName("입력받은 날짜가 1 미만 또는 31 초과라면 예외를 던진다")
         void rangeTest_whenOutOfRange(int date) {
 
-            assertThatThrownBy(() -> Day.from(date))
+            assertThatThrownBy(() -> EventDate.from(date))
                     .isInstanceOf(DateInputException.class)
                     .hasMessageContaining("Date is Out of Range : " + date);
         }
@@ -30,23 +30,23 @@ class DayTest {
         @DisplayName("입력받은 날짜가 1 이상 31 이하라면 정상적으로 객체를 생성한다")
         void rangeTest_whenInRange(int date) {
 
-            Day day = Day.from(date);
+            EventDate eventDate = EventDate.from(date);
 
-            assertThat(day).isNotNull();
+            assertThat(eventDate).isNotNull();
         }
     }
 
     @Nested
     @DisplayName("평일, 주말 구분 테스트")
-    class WeekOfDayTest {
+    class WeekOfEventDateTest {
 
         @ParameterizedTest(name = "{0}일, 주말 : {1}")
         @CsvSource({"8,true", "9,true", "7,false", "10,false"})
         @DisplayName("해당 날짜가 주말(금,토)인지 알 수 있다")
         void isWeekendTest(int date, boolean expected) {
-            Day day = Day.from(date);
+            EventDate eventDate = EventDate.from(date);
 
-            boolean actual = day.isWeekend();
+            boolean actual = eventDate.isWeekend();
 
             assertThat(actual).isEqualTo(expected);
         }

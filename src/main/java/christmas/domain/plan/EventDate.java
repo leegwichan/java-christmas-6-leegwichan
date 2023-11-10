@@ -5,7 +5,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.Set;
 
-public class Day {
+public class EventDate {
 
     private static final int YEAR = 2023;
     private static final int MONTH = 12;
@@ -16,7 +16,7 @@ public class Day {
 
     private final LocalDate date;
 
-    private Day(int date) {
+    private EventDate(int date) {
         validate(date);
         this.date = LocalDate.of(YEAR, MONTH, date);
     }
@@ -31,8 +31,8 @@ public class Day {
         return date < MIN_DATE || date > MAX_DATE;
     }
 
-    public static Day from(int date) {
-        return new Day(date);
+    public static EventDate from(int date) {
+        return new EventDate(date);
     }
 
     public boolean isWeekend() {
