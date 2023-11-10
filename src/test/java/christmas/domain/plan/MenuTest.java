@@ -17,4 +17,13 @@ class MenuTest {
 
         assertThat(actual).isEqualTo(expected);
     }
+
+    @ParameterizedTest(name = "메뉴 : {0}, 디저트 : {1}")
+    @CsvSource({"CHOCOLATE_CAKE, true", "T_BONE_STEAK, false"})
+    void isDessertTest(Menu menu, boolean expected) {
+
+        boolean actual = menu.isDessert();
+
+        assertThat(actual).isEqualTo(expected);
+    }
 }
