@@ -26,6 +26,10 @@ public enum Menu {
         this.category = category;
     }
 
+    public boolean isMain() {
+        return this.category == Category.MAIN;
+    }
+
     public boolean isDessert() {
         return this.category == Category.DESSERT;
     }
