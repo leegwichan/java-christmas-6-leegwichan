@@ -1,4 +1,4 @@
-package christmas.domain.exception;
+package christmas.exception;
 
 public class DateInputException extends IllegalArgumentException {
 
