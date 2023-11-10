@@ -50,5 +50,16 @@ class EventDateTest {
 
             assertThat(actual).isEqualTo(expected);
         }
+
+        @ParameterizedTest(name = "{0}일, 평일 : {1}")
+        @CsvSource({"7,true", "10,true", "8,false", "9,false"})
+        @DisplayName("해당 날짜가 평일(일~목)인지 알 수 있다")
+        void isWeekdayTest(int date, boolean expected) {
+            EventDate eventDate = EventDate.from(date);
+
+            boolean actual = eventDate.isWeekDay();
+
+            assertThat(actual).isEqualTo(expected);
+        }
     }
 }

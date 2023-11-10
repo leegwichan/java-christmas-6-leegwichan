@@ -39,4 +39,8 @@ public class EventDate {
         DayOfWeek dayOfWeek = date.getDayOfWeek();
         return WEEKEND.contains(dayOfWeek);
     }
+
+    public boolean isWeekDay() {
+        return !isWeekend();
+    }
 }
