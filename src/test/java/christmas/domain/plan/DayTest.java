@@ -35,4 +35,20 @@ class DayTest {
             assertThat(day).isNotNull();
         }
     }
+
+    @Nested
+    @DisplayName("평일, 주말 구분 테스트")
+    class WeekOfDayTest {
+
+        @ParameterizedTest(name = "{0}일, 주말 : {1}")
+        @CsvSource({"8,true", "9,true", "7,false", "10,false"})
+        @DisplayName("해당 날짜가 주말(금,토)인지 알 수 있다")
+        void isWeekendTest(int date, boolean expected) {
+            Day day = Day.from(date);
+
+            boolean actual = day.isWeekend();
+
+            assertThat(actual).isEqualTo(expected);
+        }
+    }
 }

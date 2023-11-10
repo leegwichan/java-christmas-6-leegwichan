@@ -1,17 +1,24 @@
 package christmas.domain.plan;
 
 import christmas.domain.exception.DateInputException;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.util.Set;
 
 public class Day {
 
+    private static final int YEAR = 2023;
+    private static final int MONTH = 12;
     private static final int MIN_DATE = 1;
     private static final int MAX_DATE = 31;
 
-    private final int date;
+    private static final Set<DayOfWeek> WEEKEND = Set.of(DayOfWeek.FRIDAY, DayOfWeek.SATURDAY);
+
+    private final LocalDate date;
 
     private Day(int date) {
         validate(date);
-        this.date = date;
+        this.date = LocalDate.of(YEAR, MONTH, date);
     }
 
     private static void validate(int date) {
@@ -26,5 +33,10 @@ public class Day {
 
     public static Day from(int date) {
         return new Day(date);
+    }
+
+    public boolean isWeekend() {
+        DayOfWeek dayOfWeek = date.getDayOfWeek();
+        return WEEKEND.contains(dayOfWeek);
     }
 }
