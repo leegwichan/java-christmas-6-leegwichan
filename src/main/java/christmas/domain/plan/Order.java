@@ -4,6 +4,7 @@ import christmas.exception.DateInputException;
 import christmas.exception.OnlyDrinkMenuException;
 import christmas.exception.TotalMenuCountException;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.function.Predicate;
 
 public class Order {
@@ -78,5 +79,17 @@ public class Order {
                 .filter(condition)
                 .mapToInt(menuToCount::get)
                 .sum();
+    }
+
+    public int calculateTotalPrice() {
+        return menuToCount.entrySet().stream()
+                .mapToInt(this::calculateSubPrice)
+                .sum();
+    }
+
+    private int calculateSubPrice(Entry<Menu, Integer> menuCountPair) {
+        int menuPrice = menuCountPair.getKey().getPrice();
+        int count = menuCountPair.getValue();
+        return menuPrice * count;
     }
 }

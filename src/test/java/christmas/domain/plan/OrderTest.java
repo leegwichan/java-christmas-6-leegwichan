@@ -111,4 +111,32 @@ class OrderTest {
             );
         }
     }
+
+    @Nested
+    @DisplayName("총 가격 계산 기능 테스트")
+    class TotalPriceTest {
+
+        static final Menu PRICE_5500 = Menu.TAPAS;
+        static final Menu PRICE_55000 = Menu.T_BONE_STEAK;
+        static final Menu PRICE_15000 = Menu.CHOCOLATE_CAKE;
+        static final Menu PRICE_25000 = Menu.CHAMPAGNE;
+
+        @ParameterizedTest(name = "주문 : {0}, 총 주문 금액 : {1}")
+        @MethodSource
+        @DisplayName("총 주문 금액을 계산할 수 있다")
+        void calculateTotalPriceTest(Map<Menu, Integer> menuToCount, int expected) {
+            Order order = Order.from(menuToCount);
+
+            int actual = order.calculateTotalPrice();
+
+            assertThat(actual).isEqualTo(expected);
+        }
+
+        private static Stream<Arguments> calculateTotalPriceTest() {
+            return Stream.of(
+                    Arguments.of(Map.of(PRICE_5500, 1), 5_500),
+                    Arguments.of(Map.of(PRICE_55000, 2, PRICE_15000, 3), 2 * 55_000 + 3 * 15_000),
+                    Arguments.of(Map.of(PRICE_25000, 1, PRICE_55000, 1), 25_000 + 55_000));
+        }
+    }
 }
