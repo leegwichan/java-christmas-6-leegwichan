@@ -21,4 +21,15 @@ class ChristmasDDayDiscountTest {
 
         assertThat(actual).isEqualTo(expected);
     }
+
+    @ParameterizedTest(name = "{0}일 할인 금액 : {1}원")
+    @CsvSource({"1, 1000", "25, 3400", "10, 1900"})
+    @DisplayName("1 ~ 25일에 할인 금액은 1,000원 에서 매일 100원씩 증가한다")
+    void calculateDiscountPriceTest_whenSatisfyPrecondition(int date, int expected) {
+        Plan plan = MockPlan.builder().date(date).build();
+
+        int actual = new ChristmasDDayDiscount().calculateDiscountPrice(plan);
+
+        assertThat(actual).isEqualTo(expected);
+    }
 }
