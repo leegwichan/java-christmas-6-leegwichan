@@ -7,6 +7,7 @@ import java.util.Set;
 public class SpecialDiscount extends DiscountPolicy {
 
     private static final EventSchedule EVENT_SCHEDULE = EventSchedule.from(Set.of(3, 10, 17, 24, 25, 31));
+    private static final int DISCOUNT_AMOUNT = 1_000;
 
     @Override
     boolean isSatisfyPrecondition(Plan plan) {
@@ -15,6 +16,6 @@ public class SpecialDiscount extends DiscountPolicy {
 
     @Override
     int calculateDiscountAmount(Plan plan) {
-        return 100;
+        return DISCOUNT_AMOUNT;
     }
 }

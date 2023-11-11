@@ -22,4 +22,17 @@ class SpecialDiscountTest {
 
         assertThat(actual).isEqualTo(expected);
     }
+
+    @ParameterizedTest(name = "{0}일")
+    @CsvSource({"3", "17", "25", "31"})
+    @DisplayName("특별 할인 기간인 경우, 1,000원을 반환한다")
+    void calculateDiscountPriceTest_whenStarDate(int date) {
+        Plan plan = MockPlan.builder()
+                .date(date).build();
+        int expected = 1000;
+
+        int actual = new SpecialDiscount().calculateDiscountPrice(plan);
+
+        assertThat(actual).isEqualTo(expected);
+    }
 }
