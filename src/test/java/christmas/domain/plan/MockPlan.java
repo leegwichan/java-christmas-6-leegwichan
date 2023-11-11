@@ -73,7 +73,7 @@ public class MockPlan extends Plan {
         private int date;
         private int countOfMainMenu;
         private int countOfDessertMenu;
-        private int totalPrice;
+        private int totalPrice = 20_000;
 
         public Builder isWeekDay() {
             this.isWeekDay = true;
