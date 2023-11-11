@@ -138,5 +138,17 @@ class OrderTest {
                     Arguments.of(Map.of(PRICE_55000, 2, PRICE_15000, 3), 2 * 55_000 + 3 * 15_000),
                     Arguments.of(Map.of(PRICE_25000, 1, PRICE_55000, 1), 25_000 + 55_000));
         }
+
+        @ParameterizedTest(name = "비교 금액과 기존 금액의 차이 : {0}, 총 금액이 비교 금액보다 높은가 : {1}")
+        @CsvSource({"1, false", "0, true", "-1, true"})
+        @DisplayName("비교 금액보다 주문 총액이 더 크거나 같은지 알 수 있다")
+        void isTotalPriceEqualOrMoreThanTest(int addend, boolean expected) {
+            Order order = Order.from(Map.of(PRICE_5500, 1));
+            int comparedPrice = 5_500 + addend;
+
+            boolean actual = order.isTotalPriceEqualOrMoreThan(comparedPrice);
+
+            assertThat(actual).isEqualTo(expected);
+        }
     }
 }

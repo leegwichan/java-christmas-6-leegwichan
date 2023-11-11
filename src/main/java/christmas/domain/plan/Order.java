@@ -92,4 +92,8 @@ public class Order {
         int count = menuCountPair.getValue();
         return menuPrice * count;
     }
+
+    public boolean isTotalPriceEqualOrMoreThan(int comparedPrice) {
+        return calculateTotalPrice() >= comparedPrice;
+    }
 }
