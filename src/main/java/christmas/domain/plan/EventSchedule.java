@@ -35,4 +35,8 @@ public class EventSchedule {
 
         return new EventSchedule(eventDates);
     }
+
+    public boolean contains(EventDate date) {
+        return dates.contains(date);
+    }
 }

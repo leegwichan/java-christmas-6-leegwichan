@@ -1,5 +1,6 @@
 package christmas.domain.plan;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.Set;
@@ -29,6 +30,29 @@ class EventScheduleTest {
             assertThatThrownBy(() -> new EventSchedule(dates))
                     .isInstanceOf(IllegalArgumentException.class)
                     .hasMessageContaining("schedule must have one or more date");
+        }
+    }
+
+    @Nested
+    @DisplayName("날짜 해당 여부 테스트")
+    class ContainDateTest {
+
+        @Test
+        @DisplayName("스케줄 안에 해당 날짜가 있을 경우, true를 반환한다")
+        void containsTest_whenContainsDate() {
+            EventDate date = EventDate.from(5);
+            EventSchedule schedule = EventSchedule.from(Set.of(5, 10, 15, 20));
+
+            assertThat(schedule.contains(date)).isTrue();
+        }
+
+        @Test
+        @DisplayName("스케줄 안에 해당 날짜가 없을 경우, false를 반환한다")
+        void containsTest_whenNotContainsDate() {
+            EventDate date = EventDate.from(7);
+            EventSchedule schedule = EventSchedule.from(Set.of(5, 10, 15, 20));
+
+            assertThat(schedule.contains(date)).isFalse();
         }
     }
 }
