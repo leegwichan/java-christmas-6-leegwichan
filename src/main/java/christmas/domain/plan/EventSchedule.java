@@ -4,6 +4,7 @@ import static java.util.stream.Collectors.toSet;
 
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.IntStream;
 
 public class EventSchedule {
 
@@ -32,6 +33,13 @@ public class EventSchedule {
     public static EventSchedule from(Set<Integer> dates) {
         Set<EventDate> eventDates = dates.stream()
                 .map(EventDate::from).collect(toSet());
+
+        return new EventSchedule(eventDates);
+    }
+
+    public static EventSchedule of(int startDate, int endDate) {
+        Set<EventDate> eventDates = IntStream.rangeClosed(startDate, endDate)
+                .mapToObj(EventDate::from).collect(toSet());
 
         return new EventSchedule(eventDates);
     }
