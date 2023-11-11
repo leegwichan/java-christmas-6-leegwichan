@@ -8,7 +8,7 @@ public class Plan {
     private final EventDate date;
     private final Order order;
 
-    private Plan(EventDate date, Order order) {
+    Plan(EventDate date, Order order) {
         this.date = Objects.requireNonNull(date);
         this.order = Objects.requireNonNull(order);
     }
