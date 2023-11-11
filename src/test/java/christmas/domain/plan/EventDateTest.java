@@ -4,8 +4,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import christmas.exception.DateInputException;
+import java.util.function.Function;
+import java.util.function.IntUnaryOperator;
+import java.util.function.ToIntFunction;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -61,5 +65,17 @@ class EventDateTest {
 
             assertThat(actual).isEqualTo(expected);
         }
+    }
+
+    @Test
+    @DisplayName("주어진 공식과 날짜에 따라 값을 반환할 수 있다")
+    void calculateByDateTest() {
+        EventDate date  = EventDate.from(13);
+        IntUnaryOperator function = value -> 100 * value + 39;
+        int expected = 100 * 13 + 39;
+
+        int actual = date.calculateByDate(function);
+
+        assertThat(actual).isEqualTo(expected);
     }
 }

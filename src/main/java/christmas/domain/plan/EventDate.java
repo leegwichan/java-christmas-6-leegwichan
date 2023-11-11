@@ -4,6 +4,7 @@ import christmas.exception.DateInputException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.Set;
+import java.util.function.IntUnaryOperator;
 
 public class EventDate {
 
@@ -42,5 +43,13 @@ public class EventDate {
 
     public boolean isWeekDay() {
         return !isWeekend();
+    }
+
+    public int calculateByDate(IntUnaryOperator function) {
+        return function.applyAsInt(getDate());
+    }
+
+    private int getDate() {
+        return date.getDayOfMonth();
     }
 }
