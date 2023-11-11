@@ -63,4 +63,11 @@ public class Order {
     public static Order from(Map<Menu, Integer> menuToCount) {
         return new Order(menuToCount);
     }
+
+    public int countMainMenu() {
+        return menuToCount.keySet().stream()
+                .filter(Menu::isMain)
+                .mapToInt(menuToCount::get)
+                .sum();
+    }
 }

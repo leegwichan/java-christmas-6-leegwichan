@@ -7,20 +7,25 @@ import christmas.exception.DateInputException;
 import christmas.exception.OnlyDrinkMenuException;
 import christmas.exception.TotalMenuCountException;
 import java.util.Map;
+import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.MethodSource;
 
 class OrderTest {
+
+    static final Menu APPETIZER_EXAMPLE = Menu.TAPAS;
+    static final Menu MAIN_EXAMPLE = Menu.T_BONE_STEAK;
+    static final Menu DESSERT_EXAMPLE = Menu.CHOCOLATE_CAKE;
+    static final Menu DRINK_EXAMPLE = Menu.CHAMPAGNE;
 
     @Nested
     @DisplayName("주문 검증 테스트")
     class ValidationTest {
-
-        static final Menu APPETIZER_EXAMPLE = Menu.TAPAS;
-        static final Menu MAIN_EXAMPLE = Menu.T_BONE_STEAK;
 
         @ParameterizedTest(name = "메인 메뉴가 {0}개일 때")
         @CsvSource({"0", "-1"})
@@ -61,6 +66,30 @@ class OrderTest {
             Order order = Order.from(menuToCount);
 
             assertThat(order).isNotNull();
+        }
+    }
+
+    @Nested
+    @DisplayName("조건에 따른 메뉴 카운팅 테스트")
+    class CountingMenuTest {
+
+        @ParameterizedTest(name = "{0}; 메인 메뉴 개수 : {1}")
+        @MethodSource
+        @DisplayName("주문한 총 메인 메뉴 개수를 셀 수 있다")
+        void countMainMenuTest(Map<Menu, Integer> menuToCount, int expected) {
+            Order order = Order.from(menuToCount);
+
+            int actual = order.countMainMenu();
+
+            assertThat(actual).isEqualTo(expected);
+        }
+
+        private static Stream<Arguments> countMainMenuTest() {
+            return Stream.of(
+                    Arguments.of(Map.of(DRINK_EXAMPLE, 3, DESSERT_EXAMPLE, 4), 0),
+                    Arguments.of(Map.of(MAIN_EXAMPLE, 5, APPETIZER_EXAMPLE, 3), 5),
+                    Arguments.of(Map.of(Menu.T_BONE_STEAK, 6, Menu.BARBECUE_RIBS, 4), 10)
+            );
         }
     }
 }
