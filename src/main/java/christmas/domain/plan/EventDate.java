@@ -3,6 +3,7 @@ package christmas.domain.plan;
 import christmas.exception.DateInputException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.Set;
 import java.util.function.IntUnaryOperator;
 
@@ -51,5 +52,25 @@ public class EventDate {
 
     private int getDate() {
         return date.getDayOfMonth();
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        }
+        if (object == null || getClass() != object.getClass()) {
+            return false;
+        }
+        EventDate date1 = (EventDate) object;
+        return Objects.equals(date, date1.date);
+    }
+
+    @Override
+    public int hashCode() {
+        if (date == null) {
+            return 0;
+        }
+        return date.hashCode();
     }
 }
