@@ -25,6 +25,7 @@ class WeekdayDiscountTest {
 
     @ParameterizedTest(name = "주문한 디저트 개수 : {0}, 할인 금액 : {1}")
     @CsvSource({"0, 0", "1, 2023", "5, 10115"})
+    @DisplayName("평일일 경우, 주문한 디저트 개수 1개당 2,203원을 할인한다")
     void calculateDiscountPriceTest_whenWeekday(int countOfDessert, int expected) {
         Plan plan = MockPlan.builder()
                 .isWeekDay().countOfDessertMenu(countOfDessert).build();
