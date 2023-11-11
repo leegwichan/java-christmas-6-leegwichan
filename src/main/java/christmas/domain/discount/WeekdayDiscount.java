@@ -4,6 +4,8 @@ import christmas.domain.plan.Plan;
 
 public class WeekdayDiscount extends DiscountPolicy {
 
+    private static final int DISCOUNT_AMOUNT_PER_MENU = 2_023;
+
     @Override
     boolean isSatisfyPrecondition(Plan plan) {
         return plan.isWeekday();
@@ -11,6 +13,6 @@ public class WeekdayDiscount extends DiscountPolicy {
 
     @Override
     int calculateDiscountAmount(Plan plan) {
-        return 1000;
+        return DISCOUNT_AMOUNT_PER_MENU * plan.countDessertMenu();
     }
 }
