@@ -91,5 +91,24 @@ class OrderTest {
                     Arguments.of(Map.of(Menu.T_BONE_STEAK, 6, Menu.BARBECUE_RIBS, 4), 10)
             );
         }
+
+        @ParameterizedTest(name = "{0}; 디저트 메뉴 개수 : {1}")
+        @MethodSource
+        @DisplayName("주문한 총 디저트 메뉴 개수를 셀 수 있다")
+        void countDessertMenuTest(Map<Menu, Integer> menuToCount, int expected) {
+            Order order = Order.from(menuToCount);
+
+            int actual = order.countDessertMenu();
+
+            assertThat(actual).isEqualTo(expected);
+        }
+
+        private static Stream<Arguments> countDessertMenuTest() {
+            return Stream.of(
+                    Arguments.of(Map.of(DRINK_EXAMPLE, 3, DESSERT_EXAMPLE, 4), 4),
+                    Arguments.of(Map.of(MAIN_EXAMPLE, 5, APPETIZER_EXAMPLE, 3), 0),
+                    Arguments.of(Map.of(Menu.CHOCOLATE_CAKE, 6, Menu.ICE_CREAM, 4), 10)
+            );
+        }
     }
 }

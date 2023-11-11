@@ -4,6 +4,7 @@ import christmas.exception.DateInputException;
 import christmas.exception.OnlyDrinkMenuException;
 import christmas.exception.TotalMenuCountException;
 import java.util.Map;
+import java.util.function.Predicate;
 
 public class Order {
 
@@ -65,8 +66,16 @@ public class Order {
     }
 
     public int countMainMenu() {
+        return countMenu(Menu::isMain);
+    }
+
+    public int countDessertMenu() {
+        return countMenu(Menu::isDessert);
+    }
+
+    private int countMenu(Predicate<Menu> condition) {
         return menuToCount.keySet().stream()
-                .filter(Menu::isMain)
+                .filter(condition)
                 .mapToInt(menuToCount::get)
                 .sum();
     }
