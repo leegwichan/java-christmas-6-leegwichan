@@ -1,8 +1,10 @@
 package christmas.domain.plan;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import christmas.exception.DateInputException;
+import christmas.exception.OnlyDrinkMenuException;
 import christmas.exception.TotalMenuCountException;
 import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
@@ -39,6 +41,26 @@ class OrderTest {
             assertThatThrownBy(() -> Order.from(menuToCount))
                     .isInstanceOf(TotalMenuCountException.class)
                     .hasMessageContaining("총 주문 개수는 20개 이하 이어야 합니다");
+        }
+
+        @Test
+        @DisplayName("주문이 음료로만 구성되어 있을 경우, 예외를 던진다")
+        void validateNotOnlyDrinkTest() {
+            Map<Menu, Integer> menuToCount = Map.of(Menu.RED_WINE, 2, Menu.ZERO_COKE, 1);
+
+            assertThatThrownBy(() -> Order.from(menuToCount))
+                    .isInstanceOf(OnlyDrinkMenuException.class)
+                    .hasMessageContaining("주문은 음료로만 구성될 수 없습니다");
+        }
+
+        @Test
+        @DisplayName("주문 조건을 모두 만족한 경우, 정상적으로 객체를 생성한다")
+        void validateTest_whenSatisfyAllCondition() {
+            Map<Menu, Integer> menuToCount = Map.of(MAIN_EXAMPLE, 3, APPETIZER_EXAMPLE, 5, Menu.ZERO_COKE, 2);
+
+            Order order = Order.from(menuToCount);
+
+            assertThat(order).isNotNull();
         }
     }
 }

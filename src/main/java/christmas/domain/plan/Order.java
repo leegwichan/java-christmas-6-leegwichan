@@ -1,6 +1,7 @@
 package christmas.domain.plan;
 
 import christmas.exception.DateInputException;
+import christmas.exception.OnlyDrinkMenuException;
 import christmas.exception.TotalMenuCountException;
 import java.util.Map;
 
@@ -18,6 +19,7 @@ public class Order {
     private static void validate(Map<Menu, Integer> menuToCount) {
         validateCountPerMenu(menuToCount);
         validateTotalCount(menuToCount);
+        validateNotOnlyDrink(menuToCount);
     }
 
     private static void validateCountPerMenu(Map<Menu, Integer> menuToCount) {
@@ -45,6 +47,17 @@ public class Order {
         return menuToCount.values().stream()
                 .mapToInt(Integer::intValue)
                 .sum();
+    }
+
+    private static void validateNotOnlyDrink(Map<Menu, Integer> menuToCount) {
+        if (isOnlyDrinkMenu(menuToCount)) {
+            throw new OnlyDrinkMenuException();
+        }
+    }
+
+    private static boolean isOnlyDrinkMenu(Map<Menu, Integer> menuToCount) {
+        return menuToCount.keySet().stream()
+                .allMatch(Menu::isDrink);
     }
 
     public static Order from(Map<Menu, Integer> menuToCount) {
