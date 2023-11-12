@@ -2,6 +2,11 @@ package christmas.domain.discount;
 
 import static java.util.stream.Collectors.toMap;
 
+import christmas.domain.discount.policy.ChristmasDDayDiscount;
+import christmas.domain.discount.policy.DiscountPolicy;
+import christmas.domain.discount.policy.SpecialDiscount;
+import christmas.domain.discount.policy.WeekdayDiscount;
+import christmas.domain.discount.policy.WeekendDiscount;
 import christmas.domain.plan.Plan;
 import java.util.List;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package christmas.domain.discount;
+package christmas.domain.discount.policy;
 
 import christmas.domain.plan.Plan;
 
@@ -13,5 +13,6 @@ public abstract class DiscountPolicy {
     }
 
     abstract boolean isSatisfyPrecondition(Plan plan);
+
     abstract int calculateDiscountAmount(Plan plan);
 }

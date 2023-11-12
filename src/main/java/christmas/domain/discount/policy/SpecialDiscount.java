@@ -1,4 +1,4 @@
-package christmas.domain.discount;
+package christmas.domain.discount.policy;
 
 import christmas.domain.plan.EventSchedule;
 import christmas.domain.plan.Plan;

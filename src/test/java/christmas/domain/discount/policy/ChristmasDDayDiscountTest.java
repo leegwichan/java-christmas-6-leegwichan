@@ -1,4 +1,4 @@
-package christmas.domain.discount;
+package christmas.domain.discount.policy;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

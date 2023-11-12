@@ -2,6 +2,8 @@ package christmas.domain.discount;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import christmas.domain.discount.policy.DiscountPolicy;
+import christmas.domain.discount.policy.MockDiscountPolicy;
 import christmas.domain.plan.MockPlan;
 import christmas.domain.plan.Plan;
 import java.util.List;
