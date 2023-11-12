@@ -1,5 +1,6 @@
 package christmas.domain.plan;
 
+import java.util.Map;
 import java.util.Objects;
 import java.util.function.IntUnaryOperator;
 
@@ -47,5 +48,13 @@ public class Plan {
 
     public boolean isTotalPriceEqualOrMoreThan(int comparedPrice) {
         return order.isTotalPriceEqualOrMoreThan(comparedPrice);
+    }
+
+    public int getDate() {
+        return date.getDate();
+    }
+
+    public Map<Menu, Integer> getOrder() {
+        return order.getOrder();
     }
 }

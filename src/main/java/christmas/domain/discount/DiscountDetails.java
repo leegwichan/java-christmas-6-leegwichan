@@ -44,4 +44,8 @@ public class DiscountDetails {
         }
         return detailsToDiscountPrice.hashCode();
     }
+
+    public Map<Class<? extends DiscountPolicy>, Integer> getClassToDiscountPrice() {
+        return detailsToDiscountPrice;
+    }
 }

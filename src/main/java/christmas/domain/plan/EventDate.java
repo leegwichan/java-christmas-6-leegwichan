@@ -50,7 +50,7 @@ public class EventDate {
         return function.applyAsInt(getDate());
     }
 
-    private int getDate() {
+    public int getDate() {
         return date.getDayOfMonth();
     }
 

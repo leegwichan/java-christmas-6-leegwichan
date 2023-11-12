@@ -96,4 +96,8 @@ public class Order {
     public boolean isTotalPriceEqualOrMoreThan(int comparedPrice) {
         return calculateTotalPrice() >= comparedPrice;
     }
+
+    public Map<Menu, Integer> getOrder() {
+        return Map.copyOf(menuToCount);
+    }
 }
