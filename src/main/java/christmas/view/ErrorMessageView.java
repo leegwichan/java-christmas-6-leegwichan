@@ -16,6 +16,9 @@ class ErrorMessageView {
             TotalMenuCountException.class, "총 메뉴 개수는 20개를 초과할 수 없습니다");
     private static final String DEFAULT_ERROR_MESSAGE = "예상치 못한 에러가 발생했습니다. 관리자에게 문의하세요.";
 
+    private ErrorMessageView() {
+    }
+
     public static String constructMessage(IllegalArgumentException exception) {
         return ERROR_MESSAGE_PREFIX.concat(findErrorMessage(exception));
     }
