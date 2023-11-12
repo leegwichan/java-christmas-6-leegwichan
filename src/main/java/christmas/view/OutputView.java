@@ -15,7 +15,8 @@ public class OutputView {
     }
 
     public void printExceptionMessage(IllegalArgumentException exception) {
-        throw new UnsupportedOperationException();
+        String errorMessage = ErrorMessageView.constructMessage(exception);
+        println(errorMessage);
     }
 
     private void println(String message) {
