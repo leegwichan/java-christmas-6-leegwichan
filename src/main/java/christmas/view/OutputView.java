@@ -4,8 +4,10 @@ import christmas.dto.PlanResultDto;
 
 public class OutputView {
 
+    private static final String APPLICATION_TITLE = "안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.";
+
     public void printApplicationTitle() {
-        throw new UnsupportedOperationException();
+        println(APPLICATION_TITLE);
     }
 
     public void printPlanResult(PlanResultDto planResult) {
@@ -14,5 +16,9 @@ public class OutputView {
 
     public void printExceptionMessage(IllegalArgumentException exception) {
         throw new UnsupportedOperationException();
+    }
+
+    private void println(String message) {
+        System.out.println(message);
     }
 }
