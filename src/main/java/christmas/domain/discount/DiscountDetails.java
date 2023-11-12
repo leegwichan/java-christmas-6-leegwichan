@@ -20,6 +20,11 @@ public class DiscountDetails {
         return new DiscountDetails(Map.of());
     }
 
+    public int calculateTotalDiscountPrice() {
+        return detailsToDiscountPrice.values().stream()
+                .mapToInt(Integer::intValue).sum();
+    }
+
     @Override
     public boolean equals(Object object) {
         if (this == object) {
