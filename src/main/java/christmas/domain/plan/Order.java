@@ -2,6 +2,7 @@ package christmas.domain.plan;
 
 import christmas.exception.DateInputException;
 import christmas.exception.OnlyDrinkMenuException;
+import christmas.exception.OrderInputException;
 import christmas.exception.TotalMenuCountException;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -26,7 +27,7 @@ public class Order {
 
     private static void validateCountPerMenu(Map<Menu, Integer> menuToCount) {
         if (isExistCountUnderOne(menuToCount)) {
-            throw new DateInputException("quantity isn't less than 1");
+            throw new OrderInputException("quantity isn't less than 1");
         }
     }
 
