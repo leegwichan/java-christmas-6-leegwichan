@@ -23,9 +23,9 @@ class TotalDiscountEventTest {
         TotalDiscountEvent totalDiscountEvent = new TotalDiscountEvent(discountPolicies);
         Plan plan = MockPlan.builder().totalPrice(totalPrice).build();
 
-        Map<Class<? extends DiscountPolicy>, Integer> actual = totalDiscountEvent.makeDiscountDetails(plan);
+        DiscountDetails actual = totalDiscountEvent.makeDiscountDetails(plan);
 
-        assertThat(actual).isEmpty();
+        assertThat(actual).isEqualTo(DiscountDetails.empty());
     }
 
     @DisplayName("총 주문 금액이 10,000 이상일 경우, 최종 할인 내역을 반환한다")
@@ -34,9 +34,9 @@ class TotalDiscountEventTest {
         List<DiscountPolicy> discountPolicies = List.of(new MockDiscountPolicy(true, 1_000));
         TotalDiscountEvent totalDiscountEvent = new TotalDiscountEvent(discountPolicies);
         Plan plan = MockPlan.builder().totalPrice(10_000).build();
-        Map<Class<? extends DiscountPolicy>, Integer> expected = Map.of(MockDiscountPolicy.class, 1_000);
+        DiscountDetails expected = DiscountDetails.from(Map.of(MockDiscountPolicy.class, 1_000));
 
-        Map<Class<? extends DiscountPolicy>, Integer> actual = totalDiscountEvent.makeDiscountDetails(plan);
+        DiscountDetails actual = totalDiscountEvent.makeDiscountDetails(plan);
 
         assertThat(actual).isEqualTo(expected);
     }
@@ -48,8 +48,8 @@ class TotalDiscountEventTest {
         TotalDiscountEvent totalDiscountEvent = new TotalDiscountEvent(discountPolicies);
         Plan plan = MockPlan.builder().totalPrice(10_000).build();
 
-        Map<Class<? extends DiscountPolicy>, Integer> actual = totalDiscountEvent.makeDiscountDetails(plan);
+        DiscountDetails actual = totalDiscountEvent.makeDiscountDetails(plan);
 
-        assertThat(actual).isEmpty();
+        assertThat(actual).isEqualTo(DiscountDetails.empty());
     }
 }

@@ -28,9 +28,9 @@ public class TotalDiscountEvent {
         return new TotalDiscountEvent(DECEMBER_EVENTS);
     }
 
-    public Map<Class<? extends DiscountPolicy>, Integer> makeDiscountDetails(Plan plan) {
+    public DiscountDetails makeDiscountDetails(Plan plan) {
         if (!isSatisfyCommonPrecondition(plan)) {
-            return Map.of();
+            return DiscountDetails.empty();
         }
         return makeDiscountDetailsWhenSatisfyPrecondition(plan);
     }
@@ -39,10 +39,12 @@ public class TotalDiscountEvent {
         return plan.isTotalPriceEqualOrMoreThan(MIN_TOTAL_PRICE);
     }
 
-    private Map<Class<? extends DiscountPolicy>, Integer> makeDiscountDetailsWhenSatisfyPrecondition(Plan plan) {
-        return discountPolicies.stream()
+    private DiscountDetails makeDiscountDetailsWhenSatisfyPrecondition(Plan plan) {
+        Map<Class<? extends DiscountPolicy>, Integer> discountDetails =  discountPolicies.stream()
                 .filter(discountPolicy -> hasDiscountBenefit(discountPolicy, plan))
                 .collect(toMap(DiscountPolicy::getClass, discountPolicy -> getDiscountPrice(discountPolicy, plan)));
+
+        return DiscountDetails.from(discountDetails);
     }
 
     private boolean hasDiscountBenefit(DiscountPolicy discountPolicy, Plan plan) {
