@@ -1,6 +1,5 @@
 package christmas.domain.plan;
 
-import christmas.exception.DateInputException;
 import christmas.exception.OnlyDrinkMenuException;
 import christmas.exception.OrderInputException;
 import christmas.exception.TotalMenuCountException;

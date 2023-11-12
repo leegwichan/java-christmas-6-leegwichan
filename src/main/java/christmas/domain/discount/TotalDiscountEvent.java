@@ -40,7 +40,7 @@ public class TotalDiscountEvent {
     }
 
     private DiscountDetails makeDiscountDetailsWhenSatisfyPrecondition(Plan plan) {
-        Map<Class<? extends DiscountPolicy>, Integer> discountDetails =  discountPolicies.stream()
+        Map<Class<? extends DiscountPolicy>, Integer> discountDetails = discountPolicies.stream()
                 .filter(discountPolicy -> hasDiscountBenefit(discountPolicy, plan))
                 .collect(toMap(DiscountPolicy::getClass, discountPolicy -> getDiscountPrice(discountPolicy, plan)));
 
