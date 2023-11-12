@@ -17,4 +17,14 @@ class GiftTest {
 
         assertThat(actual).isEqualTo(expected);
     }
+
+    @DisplayName("증정품의 혜택 가격을 제공할 수 있다")
+    @ParameterizedTest
+    @CsvSource({"NOTHING, 0", "EVENT_GIFT, 25000"})
+    void fromTest(Gift gift, int expected) {
+
+        int actual = gift.calculateBenefitPrice();
+
+        assertThat(actual).isEqualTo(expected);
+    }
 }

@@ -26,4 +26,14 @@ public enum Gift {
     private static boolean isOverThanStandardPrice(int totalPrice) {
         return totalPrice >= MIN_GIFT_PRICE;
     }
+
+    public int calculateBenefitPrice() {
+        return menuToCount.keySet().stream()
+                .mapToInt(menu -> calculatePartOfPrice(menu, menuToCount.get(menu)))
+                .sum();
+    }
+
+    public int calculatePartOfPrice(Menu menu, int count) {
+        return menu.getPrice() * count;
+    }
 }
