@@ -3,8 +3,8 @@ package christmas.domain.plan;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import christmas.exception.DateInputException;
 import christmas.exception.OnlyDrinkMenuException;
+import christmas.exception.OrderInputException;
 import christmas.exception.TotalMenuCountException;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -34,7 +34,7 @@ class OrderTest {
             Map<Menu, Integer> menuToCount = Map.of(MAIN_EXAMPLE, count, APPETIZER_EXAMPLE, 2);
 
             assertThatThrownBy(() -> Order.from(menuToCount))
-                    .isInstanceOf(DateInputException.class)
+                    .isInstanceOf(OrderInputException.class)
                     .hasMessageContaining("quantity isn't less than 1");
         }
 
