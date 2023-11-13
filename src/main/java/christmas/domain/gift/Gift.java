@@ -36,4 +36,8 @@ public enum Gift {
     public int calculatePartOfPrice(Menu menu, int count) {
         return menu.getPrice() * count;
     }
+
+    public Map<Menu, Integer> getMenuToCount() {
+        return menuToCount;
+    }
 }
