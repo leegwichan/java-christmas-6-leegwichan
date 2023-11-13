@@ -1,5 +1,6 @@
 package christmas.view;
 
+import christmas.domain.badge.Badge;
 import christmas.domain.gift.Gift;
 import christmas.domain.plan.Menu;
 import christmas.dto.DiscountEventDto;
@@ -18,6 +19,7 @@ public class OutputView {
     private static final String BENEFIT_DETAILS_TITLE = "<혜택 내역>";
     private static final String TOTAL_BENEFIT_PRICE_TITLE = "<총혜택 금액>";
     private static final String EXPECTED_PAYMENT_TITLE = "<할인 후 예상 결제 금액>";
+    private static final String BADGE_TITLE = "<12월 이벤트 배지>";
     private static final String NOT_EXIST = "없음";
 
     private static final String MENU_FORMAT = "%s %d개";
@@ -33,10 +35,13 @@ public class OutputView {
         printEventBenefitTitle(planResult.date());
         printOrder(planResult.order());
         printTotalPrice(planResult.totalPrice());
+
         printGiftMenu(planResult.gift());
         printBenefitDetails(planResult.discountDetails(), planResult.gift());
+
         printTotalBenefitPrice(planResult.totalBenefitPrice());
         printExpectedPayment(planResult.expectedPayment());
+        printBadge(planResult.badge());
     }
 
     private void printEventBenefitTitle(int date) {
@@ -100,6 +105,11 @@ public class OutputView {
     private void printExpectedPayment(int expectedPayment) {
         printTitle(EXPECTED_PAYMENT_TITLE);
         printPrice(expectedPayment);
+    }
+
+    private void printBadge(Badge badge) {
+        printTitle(BADGE_TITLE);
+        println(BadgeView.findView(badge));
     }
 
     private void printTitle(String title) {

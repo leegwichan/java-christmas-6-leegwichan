@@ -6,7 +6,7 @@ import christmas.domain.plan.Menu;
 import christmas.exception.OrderInputException;
 import java.util.Map;
 
-public class MenuView {
+class MenuView {
 
     private static final Map<String, Menu> MESSAGE_TO_MENU = Map.ofEntries(
             entry("양송이수프", Menu.MUSHROOM_SOUP), entry("타파스", Menu.TAPAS), entry("시저샐러드", Menu.CAESAR_SALAD),
