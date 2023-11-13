@@ -2,6 +2,7 @@ package christmas.view;
 
 import christmas.domain.gift.Gift;
 import christmas.domain.plan.Menu;
+import christmas.dto.DiscountEventDto;
 import christmas.dto.PlanResultDto;
 import java.text.DecimalFormat;
 import java.util.Map;
@@ -14,11 +15,14 @@ public class OutputView {
     private static final String ORDER_TITLE = NEW_LINE.concat("<주문 메뉴>");
     private static final String TOTAL_PRICE_TITLE = NEW_LINE.concat("<할인 전 총주문 금액>");
     private static final String GIFT_MENU_TITLE = NEW_LINE.concat("<증정 메뉴>");
+    private static final String BENEFIT_DETAILS_TITLE = NEW_LINE.concat("<혜택 내역>");
     private static final String NOT_EXIST = "없음";
 
     private static final String MENU_FORMAT = "%s %d개";
     private static final DecimalFormat PRICE_FORMATTER = new DecimalFormat("###,###");
-    private static final String PRICE_FORMAT = "%s원";
+    private static final String NORMAL_PRICE_FORMAT = "%s원";
+    private static final String BENEFIT_PRICE_FORMAT = "-%s원";
+    private static final String BENEFIT_DETAIL_FORMAT = "%s: ".concat(BENEFIT_PRICE_FORMAT);
 
     public void printApplicationTitle() {
         println(APPLICATION_TITLE);
@@ -29,6 +33,7 @@ public class OutputView {
         printOrder(planResult.order());
         printTotalPrice(planResult.totalPrice());
         printGiftMenu(planResult.gift());
+        printBenefitDetails(planResult.discountDetails(), planResult.gift());
     }
 
     private void printEventBenefitTitle(int date) {
@@ -50,6 +55,37 @@ public class OutputView {
         printMenuToCount(gift.getMenuToCount());
     }
 
+    private void printBenefitDetails(Map<DiscountEventDto, Integer> discountEventDetails, Gift gift) {
+        println(BENEFIT_DETAILS_TITLE);
+
+        if (discountEventDetails.isEmpty() && gift.isEmpty()) {
+            println(NOT_EXIST);
+            return;
+        }
+        discountEventDetails.forEach(this::printDiscountEventDetails);
+        printGiftEventDetails(gift);
+    }
+
+    private void printDiscountEventDetails(DiscountEventDto discountEvent, int price) {
+        if (price == 0) {
+            return;
+        }
+
+        String benefitDetailView = BenefitDetailView.findView(discountEvent);
+        String benefitPriceView = PRICE_FORMATTER.format(price);
+        println(BENEFIT_DETAIL_FORMAT.formatted(benefitDetailView, benefitPriceView));
+    }
+
+    private void printGiftEventDetails(Gift gift) {
+        if (gift.isEmpty()) {
+            return;
+        }
+
+        String benefitDetailView = BenefitDetailView.findGiftEventView();
+        String benefitPriceView = PRICE_FORMATTER.format(gift.calculateBenefitPrice());
+        println(BENEFIT_DETAIL_FORMAT.formatted(benefitDetailView, benefitPriceView));
+    }
+
     private void printMenuToCount(Map<Menu, Integer> menuToCount) {
         if (menuToCount.isEmpty()) {
             println(NOT_EXIST);
@@ -65,7 +101,7 @@ public class OutputView {
 
     private void printPrice(int price) {
         String priceView = PRICE_FORMATTER.format(price);
-        println(PRICE_FORMAT.formatted(priceView));
+        println(NORMAL_PRICE_FORMAT.formatted(priceView));
     }
 
     public void printExceptionMessage(IllegalArgumentException exception) {

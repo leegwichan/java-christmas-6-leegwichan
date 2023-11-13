@@ -37,6 +37,10 @@ public enum Gift {
         return menu.getPrice() * count;
     }
 
+    public boolean isEmpty() {
+        return menuToCount.isEmpty();
+    }
+
     public Map<Menu, Integer> getMenuToCount() {
         return menuToCount;
     }
