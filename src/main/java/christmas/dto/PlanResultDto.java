@@ -45,12 +45,12 @@ public record PlanResultDto(int date, Map<Menu, Integer> order, int totalPrice,
             int date = plan.getDate();
             Map<Menu, Integer> order = plan.getOrder();
             int totalPrice = plan.calculateTotalPrice();
-            Map<DiscountEventDto, Integer> discountDetails = toDiscountDetails();
+            Map<DiscountEventDto, Integer> discountEventToPrice = toDiscountDetails();
             int totalBenefitPrice = calculateTotalBenefitPrice();
-            int expectedPayment = totalPrice - this.discountDetails.calculateTotalDiscountPrice();
+            int expectedPayment = totalPrice - discountDetails.calculateTotalDiscountPrice();
 
             return new PlanResultDto(date, order, totalPrice, gift,
-                    discountDetails, totalBenefitPrice, expectedPayment, badge);
+                    discountEventToPrice, totalBenefitPrice, expectedPayment, badge);
         }
 
         private Map<DiscountEventDto, Integer> toDiscountDetails() {
