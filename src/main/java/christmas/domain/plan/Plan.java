@@ -55,6 +55,6 @@ public class Plan {
     }
 
     public Map<Menu, Integer> getOrder() {
-        return order.getOrder();
+        return order.getMenuToCount();
     }
 }

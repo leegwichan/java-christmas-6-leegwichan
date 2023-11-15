@@ -97,7 +97,7 @@ public class Order {
         return calculateTotalPrice() >= comparedPrice;
     }
 
-    public Map<Menu, Integer> getOrder() {
+    public Map<Menu, Integer> getMenuToCount() {
         return Map.copyOf(menuToCount);
     }
 }
