@@ -33,8 +33,8 @@ public class DiscountDetails {
         if (object == null || getClass() != object.getClass()) {
             return false;
         }
-        DiscountDetails that = (DiscountDetails) object;
-        return Objects.equals(detailsToDiscountPrice, that.detailsToDiscountPrice);
+        DiscountDetails comparedDetails = (DiscountDetails) object;
+        return Objects.equals(detailsToDiscountPrice, comparedDetails.detailsToDiscountPrice);
     }
 
     @Override
@@ -46,6 +46,6 @@ public class DiscountDetails {
     }
 
     public Map<Class<? extends DiscountPolicy>, Integer> getClassToDiscountPrice() {
-        return detailsToDiscountPrice;
+        return Map.copyOf(detailsToDiscountPrice);
     }
 }

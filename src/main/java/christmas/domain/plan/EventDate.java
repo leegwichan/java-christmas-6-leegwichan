@@ -62,8 +62,8 @@ public class EventDate {
         if (object == null || getClass() != object.getClass()) {
             return false;
         }
-        EventDate date1 = (EventDate) object;
-        return Objects.equals(date, date1.date);
+        EventDate comparedDate = (EventDate) object;
+        return Objects.equals(date, comparedDate.date);
     }
 
     @Override
