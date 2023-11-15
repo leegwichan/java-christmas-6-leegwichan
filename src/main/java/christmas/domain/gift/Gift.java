@@ -42,6 +42,6 @@ public enum Gift {
     }
 
     public Map<Menu, Integer> getMenuToCount() {
-        return menuToCount;
+        return Map.copyOf(menuToCount);
     }
 }
